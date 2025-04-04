@@ -8,9 +8,9 @@
 
 Settled Ground is a simple text-based resource-collecting dice game. It will be played through a command line with 2 players. The players’ goal is to get to 25 survival points by collecting resources, building structures, and avoiding the pesky bandit.
 
-The purpose of this project is to demonstrate concepts learned in CS-121, and to create something of my own.
+The purpose of this project is to demonstrate concepts learned in CS-121 and to learn to manage a project on my own.
 
-My biggest goal is to get the base game working. After that I will definitely need to tweak the point system and bandit probabilities to make the game more balanced and fun. One I get that working I would like to add some more features/actions to the game to make it a bit more intricate. I would also love to try and program a computer player and run simulations to see which strategies work best.
+My biggest goal is to get the basic mechanics working. After that I will need to tweak the point system and bandit probability to make the game more balanced and fun. After that I'll add the ability to save and load games. If I accomplish all of that I would also love to try and program computer players and run simulations to see which strategies work best.
 
 ---
 
@@ -52,74 +52,16 @@ My biggest goal is to get the base game working. After that I will definitely ne
 ## Sample Run
 
 ```plaintext
-. . . Lucas rolls a 6
-Lucas collects 1 Barter Token
-Lucas’s Inventory
-- 1 Points
-- 1 Barter Token
-
-Actions
-1.) Continue 
-2.) Stash
-3.) Barter
-4.) Build
-5.) Rules/Instructions
-6.) Exit Game
-Please Enter (1-6): 3
-
-Barters for one resource of your choice
-1.) Food
-2.) Water
-3.) Wood
-4.) Stone 
-Please Enter (1-4): 4
-
-Lucas collects 1 Stone
-
-. . . Levi rolls a 5 
-Levi collects 1 Stone
-Levi’s Inventory (Now jumping to late game)
-- 5 points
-- 1 Food
-- 1 Water 
-- 1 Wood 
-- 2 Stone
-- 1 Barter Token
-
-Actions
-1.) Continue 
-2.) Stash
-3.) Barter
-4.) Build
-5.) Rules/Instructions
-6.) Exit Game
-Please Enter (1-6): 4
-
-Structures
-1.) Fire Pit (3pts) (1 Wood, 1 Stone) 
-2.) Shelter (5pts) (1 Wood, 1 Food, 1 Water)
-3.) Cabin (10pts) (2 Wood, 2 Stone, 1 Food, 1 Water)
-4.) Outpost (10pts) (1 of each item)
-Please Enter (1-4): 4
-
-Levi Builds an Outpost for ten points. Barter Tokens can now be traded in for 2 resources  
-```
-
-*(Note: You repeated this sample block in the document — if you'd like both copies shown, I’ll include both.)*
-
----
-
-## Welcome to Settled ground!
-
+Welcome to Settled ground!
 …blah blah blah
 
-**Game Menu**
+Game Menu
 1.) Start Game  
 2.) Rules/Instructions  
 3.) Exit Program  
 Please Enter (1-3): 1
 
-**Player Selection**  
+Player Selection 
 Name of Player 1: Lucas  
 Name of Player 2: Levi
 
@@ -161,6 +103,106 @@ Actions
 6.) Exit Game  
 Please Enter (1-6): 1
 
+. . . Lucas rolls a 6
+Lucas collects 1 Barter Token
+Lucas’s Inventory
+- 1 Points
+- 1 Barter Token
+
+Actions
+1.) Continue 
+2.) Stash
+3.) Barter
+4.) Build
+5.) Rules/Instructions
+6.) Exit Game
+Please Enter (1-6): 3
+
+Barter for one resource of your choice
+1.) Food
+2.) Water
+3.) Wood
+4.) Stone 
+Please Enter (1-4): 4
+
+Lucas collects 1 Stone
+
+. . . Levi rolls a 5 
+Levi collects 1 Stone
+Levi’s Inventory (Now jumping to late game)
+- 5 points
+- 1 Food
+- 1 Water 
+- 1 Wood 
+- 2 Stone
+- 1 Barter Token
+
+Actions
+1.) Continue 
+2.) Stash
+3.) Barter
+4.) Build
+5.) Rules/Instructions
+6.) Exit Game
+Please Enter (1-6): 4
+
+Structures
+1.) Fire Pit (3pts) (1 Wood, 1 Stone) 
+2.) Shelter (5pts) (1 Wood, 1 Food, 1 Water)
+3.) Cabin (10pts) (2 Wood, 2 Stone, 1 Food, 1 Water)
+4.) Outpost (10pts) (1 of each item)
+Please Enter (1-4): 4
+
+Levi Builds an Outpost for ten points. Barter Tokens can now be traded in for 2 resources  
+```
+```mermaid
+classDiagram
+
+    Game <-- Player
+    Game <-- InventoryConstants
+    Player <-- InventoryConstants 
+    class Game {
+        #Player p1
+        #Player p2
+        +void main()
+        +void start()
+        +string gameMenu()
+        +void selectPlayers()
+        +void takeTurn(Player player)
+        +string actionMenu()
+        +void printRules()
+        +int rollDie()
+        +int flipCoin()
+        
+    }
+    
+    class Player{
+      #string name
+      #int[] inventory 
+      +Player()
+      +setName(String name)
+      +void printInventory()
+      +void addResource(int resource)
+      +void stashResource()
+      +void usebarter()
+      +void clearInventory()
+      +boolean canBuild()
+      +void build()      
+    }
+    class InventoryConstants {
+        +constant WOOD = 0
+        +constant STONE = 1
+        +constant FOOD = 2
+        +constant WATER = 3
+        +constant BARTERTOKEN = 4
+        +constant FIREPIT = 5
+        +constant SHELTER = 6
+        +constant CABIN = 7
+        +constant OUTPOST = 8
+        +constant POINTS = 9
+
+    }
+```
 ---
 
 ## Classes
@@ -197,19 +239,24 @@ Please Enter (1-6): 1
 - `printRules()` — prints detailed rules of the game with structure costs and items all explained  
 - `rollDie()` — returns random int 1–6  
 - `flipCoin()` — returns random int 0–1  
-  - **actually probability might not be 50–50 depending on how annoying the bandit ends up being**
+  - actually probability might not be 50–50 depending on how annoying the bandit ends up being
 
 ---
 
 ### Inventory Constants
 
 Declares an integer value for each resource/points/structures so that both game and player can import them and make working with resources clearer than trying to remember array indices
-
-```java
-const int FOOD = 0  
-const int WATER = 1  
-const int OUTPOST = 7  
-// etc.
+```
+constant WOOD = 0
+constant STONE = 1
+constant FOOD = 2
+constant WATER = 3
+constant BARTERTOKEN = 4
+constant FIREPIT = 5
+constant SHELTER = 6
+constant CABIN = 7
+constant OUTPOST = 8
+constant POINTS = 9
 ```
 
 ---
@@ -233,4 +280,9 @@ const int OUTPOST = 7
 ## Stretch Goals
 
 - tweak structure costs, coin probability, and win condition to balance game and try to make it fun  
-- add the ability to save to a file (serialization, or simply printing inventory and name?)  
+- add the ability to save to a file (serialization, or simply printing inventory and name?)
+
+## Very Stretchy Goals
+- write a basic computer player with limited strategy
+- write another computer with a legit strategy
+- test out multiple different strategies and rules and run a bunch of simulations to see which one wins the most
