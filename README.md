@@ -1,4 +1,3 @@
-tes
 # Settled Ground  
 **Lucas Lehman CS121 Final Project Documentation**
 
