@@ -221,6 +221,7 @@ classDiagram
 - `clearInventory()` — changes all resources to zero except points, called if the bandit is encountered  
 - `build()` — stores an array of int equal in length to inventory for each structure’s specific build cost, prompts user for which structure they’d like to build, calls canBuild to check if possible, subtracts the build cost from the inventory, adds the amount of points earned and adds 1 to the structure built  
 - `canBuild(structureCost[])` — Boolean method checking to see if a structure can be built, loops through arrays making sure each value in inventory is greater than or equal to the structure cost, returns true or false
+- `getInt()` - get users string input and return a int
 
 ---
 
@@ -321,5 +322,10 @@ void stashResource()
       else
         print "please enter an int"
 
+int getInt()
+  get user input
+  try to parse it to int
+    return the int
+  print error message if failed 
 
   
