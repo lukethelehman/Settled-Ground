@@ -159,8 +159,8 @@ Levi Builds an Outpost for ten points. Barter Tokens can now be traded in for 2 
 classDiagram
 
     Game <-- Player
-    Game <-- InventoryConstants
-    Player <-- InventoryConstants 
+    Game <-- Items
+    Player <-- Items
     class Game {
         #Player p1
         #Player p2
@@ -189,7 +189,7 @@ classDiagram
       +boolean canBuild()
       +void build()      
     }
-    class InventoryConstants {
+    class Items {
         +constant WOOD = 0
         +constant STONE = 1
         +constant FOOD = 2
@@ -200,6 +200,10 @@ classDiagram
         +constant CABIN = 7
         +constant OUTPOST = 8
         +constant POINTS = 9
+        +String[] itemStrings {"Points", "Wood", "Stone", "Food", "Water", 
+												"Barter Tokens", "Fire Pits", "Shelters", 
+												"Cabins", "Outposts"}
+    }
 
     }
 ```
@@ -211,11 +215,11 @@ classDiagram
 
 - Holds the inventory array, the main data structure of this program  
 - Each index in the inventory array represents a resource, with the last few indices for structures like Outpost or Shelter and Points  
-- Resource types will be defined as constant integers in a different file for easy array access (`player1.addResource(WOOD)`)  
+- Resource types will be defined as constant integers in the Items class to make resource manipulation clear (`player1.addResource(Items.WOOD)`)  
 - Each player has a name property, set by the user at the beginning of the program  
 
 **Methods**  
-- `printInventory()` — prints out the players inventory by iterating through inventory[], only prints if the value is not zero  
+- `printInventory()` — prints out the players inventory by iterating through inventory[], only prints if the value is not zero (except points)
 - `addResource(resource)` — adds 1 to the specific resource in inventory[], called right after each dice roll  
 - `stashResource()` — prompts for which resource to stash – checks to make sure it’s not zero, subtracts one from that resource and adds one to points, called from the action menu  
 - `useBarter()` — checks for barter token, if not zero than subtracts 1 from the barter tokens and prompts for which resource to add. Also checks for an Outpost. If there is one or more outpost a prompt for two resources will be given and added to inventory  
@@ -243,9 +247,10 @@ classDiagram
 
 ---
 
-### Inventory Constants
+### Items
 
 Declares an integer value for each resource/points/structures so that both game and player can import them and make working with resources clearer than trying to remember array indices
+
 ```
 constant WOOD = 0
 constant STONE = 1
@@ -257,6 +262,10 @@ constant SHELTER = 6
 constant CABIN = 7
 constant OUTPOST = 8
 constant POINTS = 9
+{"Points", "Wood", "Stone", "Food", "Water", 
+"Barter Tokens", "Fire Pits", "Shelters", 
+"Cabins", "Outposts"}
+
 ```
 
 ---
@@ -286,3 +295,37 @@ constant POINTS = 9
 - write a basic computer player with limited strategy
 - write another computer with a legit strategy
 - test out multiple different strategies and rules and run a bunch of simulations to see which one wins the most
+
+
+## Pseudocode
+
+**Player**
+```
+void printInventory()
+  print name + "'s Inventory"
+  print number of points
+  for each item in length Item.itemStrings
+    if inventory[item] is not equal to zero
+    print itemStrings[item] + ": inventory[item]"
+
+void addResource(resource)
+  add one to inventory[resource]
+
+void stashResource()
+  keepGoing gets true
+  while keepGoing 
+    print "What resource would you like to stash. "1.)Wood 2.)Stone ... Please enter (0-3)"
+    store response in response
+    if response <=3 and response >=0
+      if inventory[response] is not equal to 0
+        add one to inventory[POINTS]
+        subtract one from inventory[response]
+        print "you stashed one" itemStrings[response] to gain one point"
+        keepGoing gets false
+      else if inventory[response] = 0
+        print "No item to stash"
+      else
+        print "please enter an int"
+
+
+  
