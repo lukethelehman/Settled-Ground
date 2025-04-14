@@ -200,7 +200,8 @@ classDiagram
         +constant CABIN = 7
         +constant OUTPOST = 8
         +constant POINTS = 9
-        +String[] itemStrings {"Points", "Wood", "Stone", "Food", "Water", "Barter Tokens", "Fire Pits", "Shelters", "Cabins", "Outposts"}
+        +String[] itemStrings ("Points", "Wood", "Stone", "Food", "Water",
+        "Barter Tokens", "Fire Pits", "Shelters", "Cabins", "Outposts")
     }
 
 ```
