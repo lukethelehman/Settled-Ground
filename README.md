@@ -202,7 +202,6 @@ classDiagram
         +constant POINTS = 9
         +String[] itemStrings
     }
-
 ```
 ---
 
