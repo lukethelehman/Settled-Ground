@@ -311,7 +311,6 @@ void stashResource()
   while keepGoing 
     print "What resource would you like to stash. "1.)Wood 2.)Stone ... Please enter (0-3)"
     store response in response
-    if response <=3 and response >=0
       if inventory[response] is not equal to 0
         add one to inventory[POINTS]
         subtract one from inventory[response]
