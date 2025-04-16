@@ -323,19 +323,7 @@ void stashResource()
       else
         print "please enter an int"
 
-int getInt(int lowBound, int upBound)
-  keepGoing gets true
-  int result gets 0
-  while keepGoing is true
-    get user input
-      try to parse it to an int
-        if input is within upper and lower bounds
-          keepgoing gets false
-        else print error message
-      catch error message if failed
-  return result
-
-void useBarter()
+void useBarter() 
   int choices gets 0
   if inventory[Items.BARTER] is less than or equal to zero
     print "no barter tokens
@@ -354,6 +342,43 @@ void useBarter()
 void clearResources()
   for i = 1; i < Items.BARTERTOKEN; i++
     inventory[i] gets 0
+
+void build()
+  prompt user for which structure they’d like to build
+  response gets getInt(1,4)
+  int[] cost = new int[10]
+  if response = 1, cost = costFirepit
+  if response = 2, cost = costShelter
+  if response = 3, cost = costCabin
+  if response = 4, cost = costOutpost
+
+  if canBuild(cost[]) is true 
+    for (int i = 1; i <= Items.BARTERTOKEN; i++) {
+      subract cost[i] from inventory[i] 
+    add amount of points of structure to inventory
+    add 1 to the values of the structure built
+    print "you built one " Items.itemStrings[response + 5]
+  else
+    print "not enough resources to build"
+    
+boolean canBuild(int[] cost)
+    for (int i = 1; i <= barter tokens; i++)
+      if inventory[i] < cost[i]
+        return false
+    return true
+
+int getInt(int lowBound, int upBound)
+  keepGoing gets true
+  int result gets 0
+  while keepGoing is true
+    get user input
+      try to parse it to an int
+        if input is within upper and lower bounds
+          keepgoing gets false
+        else print error message
+      catch error message if failed
+  return result
+
 
        
 
