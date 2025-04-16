@@ -218,7 +218,7 @@ classDiagram
 - `addResource(resource)` — adds 1 to the specific resource in inventory[], called right after each dice roll  
 - `stashResource()` — prompts for which resource to stash – checks to make sure it’s not zero, subtracts one from that resource and adds one to points, called from the action menu  
 - `useBarter()` — checks for barter token, if not zero than subtracts 1 from the barter tokens and prompts for which resource to add. Also checks for an Outpost. If there is one or more outpost a prompt for two resources will be given and added to inventory  
-- `clearInventory()` — changes all resources to zero except points, called if the bandit is encountered  
+- `clearResources()` — changes all resources to zero except points, called if the bandit is encountered  
 - `build()` — stores an array of int equal in length to inventory for each structure’s specific build cost, prompts user for which structure they’d like to build, calls canBuild to check if possible, subtracts the build cost from the inventory, adds the amount of points earned and adds 1 to the structure built  
 - `canBuild(structureCost[])` — Boolean method checking to see if a structure can be built, loops through arrays making sure each value in inventory is greater than or equal to the structure cost, returns true or false
 - `getInt()` - get users string input and return a int
@@ -269,7 +269,7 @@ constant POINTS = 9
 ## Milestones
 
 - get UML approved  
-- Write InventoryConstants  
+- Write Items 
 - Build basic Player class  
 - Write every Player method and test individually  
 - Write basic Game class  
@@ -350,6 +350,11 @@ void useBarter()
       store getInt(1,4) in response
       add one to inventory[response]
       print "you gained one " inventory[response]
+
+void clearResources()
+  for i = 1; i < Items.BARTERTOKEN; i++
+    inventory[i] gets 0
+
        
 
   
