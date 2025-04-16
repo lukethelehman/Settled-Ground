@@ -16,9 +16,7 @@ public class Player {
 		p.addResource(Items.BARTERTOKEN);
 		p.addResource(Items.OUTPOST);
 		p.printInventory();
-		p.stashResource();
-		p.printInventory();
-		p.useBarter();
+		p.clearResources();
 		p.printInventory();
 	}
 
@@ -84,7 +82,13 @@ public class Player {
 				System.out.println("You gained one " + Items.itemStrings[response]);
 			}
 		}
-	}			
+	}
+
+	public void clearResources(){
+		for (int i = 1; i <= Items.BARTERTOKEN; i++){
+			inventory[i] = 0;
+		}
+	}
 			
 
 	public int getInt(int lowBound, int upBound){
