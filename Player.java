@@ -41,27 +41,21 @@ public class Player {
 			System.out.println("3.) Food");
 			System.out.println("4.) Water");
 			System.out.print("Please Enter (1-4)): ");
-			int response = getInt();
-
-			if (response >= 1 && response <= 4){
-				if (inventory[response] != 0){
-					inventory[response] = inventory[response] - 1;
-					inventory[Items.POINTS] ++;
-					System.out.println("You stashed one " + Items.itemStrings[response]);
-					System.out.println("You earned one point");
-					keepGoing = false;
-				}
-				else if (inventory[response] == 0) {
-					System.out.println("ERROR: No item to stash");
-					}
+			int response = getInt(1,4);
+			if (inventory[response] != 0){
+				inventory[response] = inventory[response] - 1;
+				inventory[Items.POINTS] ++;
+				System.out.println("You stashed one " + Items.itemStrings[response]);
+				System.out.println("You earned one point");
+				keepGoing = false;
 			}
-			else {
-				System.out.println("ERROR: Please enter an integer (1-4)");
+			else if (inventory[response] == 0) {
+				System.out.println("ERROR: No item to stash");
 			}
-		}	
-	}
+		}
+	}	
 
-	public int getInt(){
+	public int getInt(int lowBound, int upBound){
 		boolean keepGoing = true;
 		String response;
 		int result = 0;
@@ -69,7 +63,12 @@ public class Player {
 			response = input.nextLine();
 			try {
 				result = Integer.parseInt(response);
-				keepGoing = false;
+				if (result >= lowBound && result <= upBound){
+					keepGoing = false;
+				}
+				else {
+					System.out.print("ERROR: Must be between (" + lowBound + "-" + upBound + "): ");
+				}
 			} catch(NumberFormatException e) {
 				System.out.print("ERROR: please enter an integer: ");
 			}
