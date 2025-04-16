@@ -323,13 +323,31 @@ void stashResource()
       else
         print "please enter an int"
 
-int getInt()
-  get user input
+int getInt(int lowBound, int upBound)
   keepGoing gets true
+  int result gets 0
   while keepGoing is true
-    try to parse it to an int
-      keepgoing gets false
-    print error message if failed
-  return result 
+    get user input
+      try to parse it to an int
+        if input is within upper and lower bounds
+          keepgoing gets false
+        else print error message
+      catch error message if failed
+  return result
+
+void useBarter()
+  if inventory[Items.BARTER] is less than or equal to zero
+    print "no barter coins
+  else
+     subtract 1 from barter tokens
+     if inventory[Items.OUTPOST] is not equal to 0
+       int choices = 2
+     else
+      int choices = 1
+    for int i; i <= choices; i++
+      prompt for resource
+      store getInt(1,4) in result
+      add one to inventory[result]
+       
 
   
