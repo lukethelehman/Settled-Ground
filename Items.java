@@ -10,6 +10,10 @@ public class Items {
 	public static final int CABIN = 8;
 	public static final int OUTPOST = 9;
 	public static final String[] itemStrings = {"Points", "Wood", "Stone", "Food", "Water", 
-												"Barter Tokens", "Fire Pits", "Shelters", 
-												"Cabins", "Outposts"}; 
+												"Barter Token", "Fire Pit", "Shelter", 
+												"Cabin", "Outpost"}; 
+	public static final int[] costFirepit = {3,1,1,0,0,0,0,0,0,0};
+	public static final int[] costShelter = {5,1,0,1,1,0,0,0,0,0};
+	public static final int[] costCabin = {10,2,2,1,1,0,0,0,0,0};
+	public static final int[] costOutpost = {10,1,1,1,1,1,0,0,0,0};
 }

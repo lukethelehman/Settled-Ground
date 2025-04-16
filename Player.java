@@ -14,9 +14,10 @@ public class Player {
 		p.addResource(Items.WOOD);
 		p.addResource(Items.WATER);
 		p.addResource(Items.BARTERTOKEN);
-		p.addResource(Items.OUTPOST);
+		p.addResource(Items.FOOD);
+		p.addResource(Items.STONE);
 		p.printInventory();
-		p.clearResources();
+		p.build();
 		p.printInventory();
 	}
 
@@ -89,6 +90,56 @@ public class Player {
 			inventory[i] = 0;
 		}
 	}
+	
+	public void build(){
+		boolean keepGoing = true;
+		while (keepGoing) {
+			System.out.println("Which structure would you like to build?");
+			System.out.println("1.) Firepit");
+			System.out.println("2.) Shelter");
+			System.out.println("3.) Cabin");
+			System.out.println("4.) Outpost");
+			System.out.print("Please Enter (1-4)): ");
+			int response = getInt(1,4);
+			int cost[] = new int[10];
+			if (response == 1){
+				cost = Items.costFirepit;
+			}
+			else if (response == 2){
+				cost = Items.costShelter;
+			}
+			else if (response == 3) {
+				cost = Items.costCabin;
+			}
+			else if (response == 4) {
+				cost = Items.costOutpost;
+			}
+
+			if (canBuild(cost)){
+				for (int i = 1; i <= Items.BARTERTOKEN; i++){
+					inventory[i] = inventory[i] - cost[i];
+				}
+				inventory[Items.POINTS] = inventory[Items.POINTS] + cost[Items.POINTS];
+				inventory[response + 5]++;
+				System.out.println("You built a " + Items.itemStrings[response +5]);
+				System.out.println("for " + cost[Items.POINTS] + " points");
+				keepGoing = false;
+			}
+			else {
+				System.out.println("Not enough resources");
+			}
+		}
+	}
+
+	public boolean canBuild(int[] cost){
+		for (int i = 1; i <= Items.BARTERTOKEN; i++){
+			if (inventory[i] < cost[i]){
+				return false;
+			}
+		}
+		return true;
+	}
+		
 			
 
 	public int getInt(int lowBound, int upBound){
