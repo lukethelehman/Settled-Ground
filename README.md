@@ -336,18 +336,20 @@ int getInt(int lowBound, int upBound)
   return result
 
 void useBarter()
+  int choices gets 0
   if inventory[Items.BARTER] is less than or equal to zero
-    print "no barter coins
+    print "no barter tokens
   else
      subtract 1 from barter tokens
      if inventory[Items.OUTPOST] is not equal to 0
-       int choices = 2
+       choices = 2
      else
-      int choices = 1
-    for int i; i <= choices; i++
+       choices = 1
+    for int i = 0; i <= choices; i++
       prompt for resource
-      store getInt(1,4) in result
-      add one to inventory[result]
+      store getInt(1,4) in response
+      add one to inventory[response]
+      print "you gained one " inventory[response]
        
 
   
