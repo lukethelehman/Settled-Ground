@@ -310,13 +310,14 @@ void addResource(resource)
 void stashResource()
   keepGoing gets true
   while keepGoing 
-    print "What resource would you like to stash. "1.)Wood 2.)Stone ... Please enter (0-3)"
-    store response in response
-      if inventory[response] is not equal to 0
-        add one to inventory[POINTS]
-        subtract one from inventory[response]
-        print "you stashed one" itemStrings[response] to gain one point"
-        keepGoing gets false
+    print "What resource would you like to stash. "1.)Wood 2.)Stone ... Please enter (1-4)"
+    store getInt() in response
+      if response is >= 1 and <= 4
+        if inventory[response] is not equal to 0
+          add one to inventory[POINTS]
+          subtract one from inventory[response]
+          print "you stashed one" itemStrings[response] to gain one point"
+          keepGoing gets false
       else if inventory[response] = 0
         print "No item to stash"
       else
@@ -324,8 +325,11 @@ void stashResource()
 
 int getInt()
   get user input
-  try to parse it to int
-    return the int
-  print error message if failed 
+  keepGoing gets true
+  while keepGoing is true
+    try to parse it to an int
+      keepgoing gets false
+    print error message if failed
+  return result 
 
   
