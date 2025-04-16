@@ -14,6 +14,8 @@ public class Player {
 		p.addResource(Items.WOOD);
 		p.addResource(Items.WATER);
 		p.printInventory();
+		p.stashResource();
+		p.printInventory();
 	}
 
 	public void printInventory(){
@@ -34,14 +36,14 @@ public class Player {
 		boolean keepGoing = true;
 		while (keepGoing){
 			System.out.println("What item would you like to stash?");
-			System.out.println("0.) Wood");
-			System.out.println("1.) Stone");
-			System.out.println("2.) Food");
-			System.out.println("3.) Water");
-			System.out.print("Please Enter (0-3)): ");
+			System.out.println("1.) Wood");
+			System.out.println("2.) Stone");
+			System.out.println("3.) Food");
+			System.out.println("4.) Water");
+			System.out.print("Please Enter (1-4)): ");
 			int response = getInt();
 
-			if (response >= 0 && response <= 3){
+			if (response >= 1 && response <= 4){
 				if (inventory[response] != 0){
 					inventory[response] = inventory[response] - 1;
 					inventory[Items.POINTS] ++;
@@ -54,21 +56,24 @@ public class Player {
 					}
 			}
 			else {
-				System.out.println("ERROR: Please enter an integer (0-3)");
+				System.out.println("ERROR: Please enter an integer (1-4)");
 			}
 		}	
 	}
 
 	public int getInt(){
-		String response = input.nextLine();
 		boolean keepGoing = true;
+		String response;
+		int result = 0;
 		while (keepGoing){
-			try {	
+			response = input.nextLine();
+			try {
+				result = Integer.parseInt(response);
 				keepGoing = false;
-				return Integer.parseInt(response);
 			} catch(NumberFormatException e) {
-				System.out.println("ERROR: please enter an integer");
+				System.out.print("ERROR: please enter an integer: ");
 			}
 		}
+		return result;
 	}
 }
