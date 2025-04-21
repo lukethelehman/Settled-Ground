@@ -1,10 +1,11 @@
 //Game.java
+import java.util.Random;
 
 public class Game {
 	Player p1;
 	Player p2;
 	java.util.Scanner input = new java.util.Scanner(System.in);
-
+	Random rand = new Random();
 	public static void main(String[] args){
 		Game g = new Game();
 		g.start();
@@ -29,11 +30,18 @@ public class Game {
 				selectPlayers();
 				Player first = p1;
 				Player second = p2;
-				int coin = flipCoin();
-				if (coin == 1){
+				String coin = flipCoin(.5);
+				if (coin == "heads"){
+					System.out.println("flipping coin, heads goes first...");
+					System.out.println(p2.name + " lands heads and goes first");
 					first = p2;
 					second = p1;
 				}
+				else{
+					System.out.println("flipping coin, heads goes first...");
+					System.out.println(p1.name + " lands heads and goes first");
+				}
+
 				boolean noWinner = true;
 				while (noWinner){
 					takeTurn(first);
@@ -52,6 +60,8 @@ public class Game {
 	}
 
 	public int gameMenu(){
+		System.out.println();
+		System.out.println("Game Menu");
 		System.out.println("0.) Exit");
 		System.out.println("1.) Rules/Instructions");
 		System.out.println("2.) Start game");
@@ -74,12 +84,23 @@ public class Game {
 		
 	}
 
-	public int flipCoin(){
-		return 0;
-	}
-
 	public void takeTurn(Player player){
 		System.out.println(player.name);
+	}
+
+	public String flipCoin(double chanceOfHeads){
+		double toss = rand.nextDouble();
+		if (toss < chanceOfHeads){
+			return "heads";
+		}
+		else {
+			return "tails";
+		}
+	}
+
+	public int rollDie(){
+		roll = rand.nextInt(6) + 1;
+		return roll;
 	}
 }
 
