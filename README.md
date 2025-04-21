@@ -378,6 +378,50 @@ int getInt(int lowBound, int upBound)
         else print error message
       catch error message if failed
   return result
+```
+
+**Game**
+```
+main()
+  calls start()
+
+start()
+boolean keepGoing gets true
+while keepGoing 
+  String response gets gameMenu()
+  if response equals 0
+    exit
+  if response equals 1
+    printRules()
+  if response equals 2
+    call selectPlayers() to set user names
+    int coin gets flipCoin()
+    if coin equals 0
+       Player first gets p1
+       Player second gets p2
+    if coin equals 1
+      Player first gets p2
+      Player second gets p1
+    boolean noWinner gets true
+    while noWinner
+      takeTurn(first)
+      if first's points are greater than or equal to 25
+        print "first.name wins!"
+        noWinner gets false
+      takeTurnn(second)
+      if second's points are greater than or equal to 25
+      print "second.name wins!"
+      noWinner gets false
+
+String gameMenu()
+  print menu ("0.)Exit 1.)View rules 2.)Start"
+  response equals getInt(0,2)
+  return response
+
+printRules()
+  print's the full rules out 
+
+
 
 
        
