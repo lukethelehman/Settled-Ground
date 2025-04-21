@@ -385,33 +385,36 @@ int getInt(int lowBound, int upBound)
 main()
   calls start()
 
+Game()
+  initialize p1 and p2
+
 start()
-boolean keepGoing gets true
-while keepGoing 
-  String response gets gameMenu()
-  if response equals 0
-    exit
-  if response equals 1
-    printRules()
-  if response equals 2
-    call selectPlayers() to set user names
-    int coin gets flipCoin()
-    if coin equals 0
-       Player first gets p1
-       Player second gets p2
-    if coin equals 1
-      Player first gets p2
-      Player second gets p1
-    boolean noWinner gets true
-    while noWinner
-      takeTurn(first)
-      if first's points are greater than or equal to 25
-        print "first.name wins!"
+  boolean keepGoing gets true
+  while keepGoing 
+    String response gets gameMenu()
+    if response equals 0
+      exit
+    if response equals 1
+      printRules()
+    if response equals 2
+      call selectPlayers() to set user names
+      int coin gets flipCoin()
+      if coin equals 0
+         Player first gets p1
+         Player second gets p2
+      if coin equals 1
+        Player first gets p2
+        Player second gets p1
+      boolean noWinner gets true
+      while noWinner
+        takeTurn(first)
+        if first's points are greater than or equal to 25
+          print "first.name wins!"
+          noWinner gets false
+        takeTurn(second)
+        if second's points are greater than or equal to 25
+        print "second.name wins!"
         noWinner gets false
-      takeTurnn(second)
-      if second's points are greater than or equal to 25
-      print "second.name wins!"
-      noWinner gets false
 
 String gameMenu()
   print menu ("0.)Exit 1.)View rules 2.)Start"
@@ -419,7 +422,15 @@ String gameMenu()
   return response
 
 printRules()
-  print's the full rules out 
+  print the full rules out
+
+selectPlayers()
+  print "Player 1 name: "
+  player1Name gets input.nextLine
+  p1 gets new Player(player1Name)
+  print "Player 2 name: "
+  player2Name gets input.nextLine
+  p2 gets new Player(player2Name)
 
 
 
