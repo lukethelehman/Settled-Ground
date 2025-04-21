@@ -432,6 +432,17 @@ selectPlayers()
   player2Name gets input.nextLine
   p2 gets new Player(player2Name)
 
+flipCoin(double chanceOfTrue)
+  Random rand gets new Random
+  double toss gets random double from 0 to 1
+  if toss is less than chanceOfTrue
+    return true
+  else
+    return false
+rollDie()
+  return random int 1-6
+  
+
 
 
 
