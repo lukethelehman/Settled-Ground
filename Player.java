@@ -9,7 +9,7 @@ public class Player {
 		this.name = name;
 	}
 
-	public static void main(String args[]) {
+/*	public static void main(String args[]) {
 		Player p = new Player("lucas");
 		p.addResource(Items.WOOD);
 		p.addResource(Items.WATER);
@@ -19,7 +19,7 @@ public class Player {
 		p.printInventory();
 		p.build();
 		p.printInventory();
-	}
+	} */
 
 	public void printInventory(){
 		System.out.println(name + "'s Inventory");
@@ -43,7 +43,7 @@ public class Player {
 			System.out.println("2.) Stone");
 			System.out.println("3.) Food");
 			System.out.println("4.) Water");
-			System.out.print("Please Enter (1-4)): ");
+			System.out.print("Please Enter (1-4): ");
 			int response = getInt(1,4);
 			if (inventory[response] != 0){
 				inventory[response]--;
@@ -77,7 +77,7 @@ public class Player {
 				System.out.println("2.) Stone");
 				System.out.println("3.) Food");
 				System.out.println("4.) Water");
-				System.out.print("Please Enter (1-4)): ");
+				System.out.print("Please Enter (1-4): ");
 				int response = getInt(1,4);
 				inventory[response]++;
 				System.out.println("You gained one " + Items.itemStrings[response]);
@@ -99,7 +99,7 @@ public class Player {
 			System.out.println("2.) Shelter");
 			System.out.println("3.) Cabin");
 			System.out.println("4.) Outpost");
-			System.out.print("Please Enter (1-4)): ");
+			System.out.print("Please Enter (1-4): ");
 			int response = getInt(1,4);
 			int cost[] = new int[10];
 			if (response == 1){
