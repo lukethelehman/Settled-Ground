@@ -441,10 +441,10 @@ flipCoin(double chanceOfTrue)
 rollDie()
   return random int 1-6
 
-String actionMenu()
+int actionMenu()
   Print turn options ("0.) Continue  1.) Stash  2.) Barter  3.) Build  4.) Rules/Instructions  5.) Exit Game")
   Print ("Please Enter (0-5): ")
-  String response gets getInt(0,5)
+  int response gets getInt(0,5)
   return response 
   
 
