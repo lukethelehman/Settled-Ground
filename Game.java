@@ -99,8 +99,19 @@ public class Game {
 	}
 
 	public int rollDie(){
-		roll = rand.nextInt(6) + 1;
+		int roll = rand.nextInt(6) + 1;
 		return roll;
+	}
+
+	public int actionMenu(){
+		System.out.println("0.) Continue");
+		System.out.println("1.) Stash");
+		System.out.println("2.) Barter");
+		System.out.println("3.) Build");
+		System.out.println("4.) Rules/Instructions");
+		System.out.println("5.) Exit Game");
+		int response = p1.getInt(0,5);
+		return response;
 	}
 }
 
