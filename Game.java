@@ -83,11 +83,6 @@ public class Game {
 		p2 = new Player(player2Name);
 		
 	}
-
-	public void takeTurn(Player player){
-		System.out.println(player.name);
-	}
-
 	public String flipCoin(double chanceOfHeads){
 		double toss = rand.nextDouble();
 		if (toss < chanceOfHeads){
@@ -113,6 +108,75 @@ public class Game {
 		int response = p1.getInt(0,5);
 		return response;
 	}
+
+	public void takeTurn(Player player){
+		int roll = rollDie();
+		System.out.println(player.name + " rolls a... " + roll);
+		
+		if (roll == 1){
+			String coin = flipCoin(.5);
+			System.out.println("and encounters the bandit!!! If they flip tails they lose all their resources");
+			System.out.println(player.name + "flips a coin and lands " + coin);
+			if (coin == "tails"){
+				System.out.println("The bandit steals all your resources");
+				player.clearResources();
+			}
+			else{
+				System.out.println("You narrowly escape with your resources");
+			}
+		}
+		else if (roll == 2){
+			player.addResource(Items.WOOD);
+			System.out.println("and collects 1 Wood");
+		}
+		else if (roll == 3){
+			player.addResource(Items.STONE);
+			System.out.println("and collects 1 STONE");
+		}
+		else if (roll == 4){
+			player.addResource(Items.FOOD);
+			System.out.println("and collects 1 Food");
+		}
+		else if (roll == 5){
+			player.addResource(Items.WATER);
+			System.out.println("and collects 1 Water");
+		}
+		else if (roll == 6){
+			player.addResource(Items.BARTERTOKEN);
+			System.out.println("and collects 1 Barter Token");
+		}
+		
+		player.printInventory();
+		
+		boolean keepGoing = true;
+		while (keepGoing){
+			int response = actionMenu();
+			if (response == 0){
+				keepGoing = false;
+			}
+			else if (response == 1){
+				if (player.stashResource()){
+					keepGoing = false;
+				}
+			}
+			else if (response == 2){
+				if (player.useBarter()){
+					keepGoing = false;
+				}
+			}
+			else if (response == 3){
+				if (player.build()){
+					keepGoing = false;
+				}
+			}
+			else if (response == 4){
+				printRules();
+			}
+			else if (response == 5){
+				start();
+			}
+		}
+	}							
 }
 
 

@@ -35,7 +35,7 @@ public class Player {
 		inventory[resource]++;
 	}
 
-	public void stashResource(){
+	public boolean stashResource(){
 		boolean keepGoing = true;
 		while (keepGoing){
 			System.out.println("Which resource would you like to stash?");
@@ -43,25 +43,31 @@ public class Player {
 			System.out.println("2.) Stone");
 			System.out.println("3.) Food");
 			System.out.println("4.) Water");
-			System.out.print("Please Enter (1-4): ");
-			int response = getInt(1,4);
+			System.out.println("5.) Exit");
+			System.out.print("Please Enter (1-5): ");
+			int response = getInt(1,5);
+			if (response == 5){
+				return false;
+			}
 			if (inventory[response] != 0){
 				inventory[response]--;
 				inventory[Items.POINTS] ++;
 				System.out.println("You stashed one " + Items.itemStrings[response]);
 				System.out.println("You earned one point");
-				keepGoing = false;
+				return true;
 			}
 			else if (inventory[response] == 0) {
 				System.out.println("ERROR: No resource to stash");
 			}
 		}
+		return false;
 	}
 
-	public void useBarter(){
+	public boolean useBarter(){
 		int choices = 0;
 		if (inventory[Items.BARTERTOKEN] <= 0){
 			System.out.println("No Barter Tokens");
+			return false;
 		}
 		else {
 			inventory[Items.BARTERTOKEN]--;
@@ -82,16 +88,16 @@ public class Player {
 				inventory[response]++;
 				System.out.println("You gained one " + Items.itemStrings[response]);
 			}
+			return true;
 		}
 	}
-
 	public void clearResources(){
 		for (int i = 1; i <= Items.BARTERTOKEN; i++){
 			inventory[i] = 0;
 		}
 	}
 	
-	public void build(){
+	public boolean build(){
 		boolean keepGoing = true;
 		while (keepGoing) {
 			System.out.println("Which structure would you like to build?");
@@ -99,8 +105,12 @@ public class Player {
 			System.out.println("2.) Shelter");
 			System.out.println("3.) Cabin");
 			System.out.println("4.) Outpost");
-			System.out.print("Please Enter (1-4): ");
-			int response = getInt(1,4);
+			System.out.println("5.) Exit");
+			System.out.print("Please Enter (1-5): ");
+			int response = getInt(1,5);
+			if (response == 5){
+				return false;
+			}
 			int cost[] = new int[10];
 			if (response == 1){
 				cost = Items.costFirepit;
@@ -123,12 +133,13 @@ public class Player {
 				inventory[response + 5]++;
 				System.out.println("You built a " + Items.itemStrings[response +5]);
 				System.out.println("for " + cost[Items.POINTS] + " points");
-				keepGoing = false;
+				return true;
 			}
 			else {
 				System.out.println("Not enough resources");
 			}
 		}
+		return false;
 	}
 
 	public boolean canBuild(int[] cost){
