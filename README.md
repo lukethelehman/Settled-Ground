@@ -306,17 +306,19 @@ void printInventory()
 void addResource(resource)
   add one to inventory[resource]
 
-void stashResource()
+boolean stashResource()
   keepGoing gets true
   while keepGoing 
-    print "What resource would you like to stash. "1.)Wood 2.)Stone ... Please enter (1-4)"
+    print "What resource would you like to stash. "1.)Wood 2.)Stone ... 5.) Exit Please enter (1-5)"
     store getInt() in response
+      if response equals 5
+        return false
       if response is >= 1 and <= 4
         if inventory[response] is not equal to 0
           add one to inventory[POINTS]
           subtract one from inventory[response]
           print "you stashed one" itemStrings[response] to gain one point"
-          keepGoing gets false
+          return true
       else if inventory[response] = 0
         print "No item to stash"
       else
@@ -342,23 +344,27 @@ void clearResources()
   for i = 1; i < Items.BARTERTOKEN; i++
     inventory[i] gets 0
 
-void build()
-  prompt user for which structure they’d like to build
-  response gets getInt(1,4)
-  int[] cost = new int[10]
-  if response = 1, cost = costFirepit
-  if response = 2, cost = costShelter
-  if response = 3, cost = costCabin
-  if response = 4, cost = costOutpost
-
-  if canBuild(cost[]) is true 
-    for (int i = 1; i <= Items.BARTERTOKEN; i++) {
-      subract cost[i] from inventory[i] 
-    add amount of points of structure to inventory
-    add 1 to the values of the structure built
-    print "you built one " Items.itemStrings[response + 5]
-  else
-    print "not enough resources to build"
+boolean build()
+  boolean keepGoing equals true;
+  while keepGoing 
+    prompt user for which structure they’d like to build
+    response gets getInt(1,4)
+    int[] cost = new int[10]
+    if response = 1, cost = costFirepit
+    if response = 2, cost = costShelter
+    if response = 3, cost = costCabin
+    if response = 4, cost = costOutpost
+    if response = 5, return false
+  
+    if canBuild(cost[]) is true 
+      for (int i = 1; i <= Items.BARTERTOKEN; i++) {
+        subract cost[i] from inventory[i] 
+      add amount of points of structure to inventory
+      add 1 to the values of the structure built
+      print "you built one " Items.itemStrings[response + 5]
+      return true 
+    else
+      print "not enough resources to build"
     
 boolean canBuild(int[] cost)
     for (int i = 1; i <= barter tokens; i++)
@@ -452,9 +458,9 @@ void takeTurn()
 
   if roll equals 1
     print ("and encounters the bandit!!")
-      print ("player.name flips a coin. if heads, they lose all their resources")
+      print ("player.name flips a coin. if tails, they lose all their resources")
       string coin gets flipCoin(.5)
-      if coin equals "heads"
+      if coin equals "tails"
         print ("player.name cannot escape the bandit, and loses all of their resources");
         player.clearInventory()
       else
