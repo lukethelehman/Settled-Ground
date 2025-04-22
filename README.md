@@ -28,12 +28,11 @@ My biggest goal is to get the basic mechanics working. After that I will need to
 
 **Die Values:**
 - 1: Bandit (if rolled, a coin is flipped for a 50% chance to lose all resources)
-- 2: Food
-- 3: Water
-- 4: Wood
-- 5: Stone
+- 2: Wood
+- 3: Stone
+- 4: Food
+- 5: Water
 - 6: Barter token
-
 ---
 
 ### Structure build costs/points:
@@ -445,8 +444,64 @@ int actionMenu()
   Print turn options ("0.) Continue  1.) Stash  2.) Barter  3.) Build  4.) Rules/Instructions  5.) Exit Game")
   Print ("Please Enter (0-5): ")
   int response gets getInt(0,5)
-  return response 
+  return response
+
+void takeTurn()
+  int roll gets rollDie()
+  print "... player.name rolls a <roll>"
+
+  if roll equals 1
+    print ("and encounters the bandit!!")
+      print ("player.name flips a coin. if heads, they lose all their resources")
+      string coin gets flipCoin(.5)
+      if coin equals "heads"
+        print ("player.name cannot escape the bandit, and loses all of their resources");
+        player.clearInventory()
+      else
+        print ("player.name narrowly escapes the bandit with all of their resources");
+  else if roll equals 2
+    player.addResource(Items.WOOD)
+    print ("and collects one Wood")
+  else if roll equals 3
+    player.addResource(Items.STONE)
+    print ("and collects one Stone")
+  else if roll equals 4
+    player.addResource(Items.FOOD)
+    print ("and collects one Food")
+  else if roll equals 5
+    player.addResource(Items.WATER)
+    print ("and collects one Water")
+  else if roll equals 6
+    player.addResource(Items.BARTERTOKEN)
+    print ("and collects one Barter Token")
+
+  player.printInventory()
+
+  boolean keepGoing gets true
+  while keepGoing
+    int response gets actionMenu()
+    if response equals 0
+      keepGoing gets false
+    else if response equals 1
+      if player.stashResource() is true
+        keepGoing gets false
+    else if response equals 2
+      if player.useBarter() equals true
+        keepGoing gets false
+    else if response equals 3
+      if player.build equals true
+        keepGoing gets false
+    else if response equals 4
+      printRules()
+    else if response equals 5
+      start()
+      
+      
+      
+    
   
+  
+    
 
 
 
