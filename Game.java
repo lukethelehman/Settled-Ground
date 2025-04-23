@@ -39,8 +39,8 @@ public class Game {
 				System.out.println();
 				System.out.print("Press ENTER to flip coin and see who goes first: ");
 				input.nextLine();
-				String coin = flipCoin(.5);
-				if (coin.equals("heads")){
+				boolean coin = flipCoin(.5);
+				if (coin == true){
 					System.out.println("flipping coin...");
 					System.out.println(p2.name + " goes first");
 					first = p2;
@@ -84,9 +84,57 @@ public class Game {
 	}
 
 	public void printRules(){
-		System.out.println("Rules/Instructions");
-	}
+		System.out.println("\n=======================");
+ 	  	System.out.println("       GAME RULES");
+   		System.out.println("=======================\n");
 
+   		System.out.println(" GOAL:");
+   		System.out.println("- Be the first player to reach 25 survival points.\n");
+	
+   		System.out.println(" ON EACH TURN:");
+   		System.out.println("- Roll a 6-sided die to collect a resource.");
+   		System.out.println("- After rolling, you may choose ONE action:\n");
+   		System.out.println("  0.) Continue   → Do nothing this turn.");
+   		System.out.println("  1.) Stash      → Convert 1 resource into 1 survival point.");
+   		System.out.println("  2.) Barter     → Trade 1 Barter Token for resources.");
+   		System.out.println("  3.) Build      → Spend resources to construct a structure for points.");
+   		System.out.println("  4.) Rules      → View this menu again.");
+   		System.out.println("  5.) Exit Game  → Return to the main menu.\n");
+	
+   		System.out.println(" DIE ROLL VALUES:");
+   		System.out.println("  1 → Bandit encounter (25% chance of full resource loss)");
+	   	System.out.println("  2 → Wood");
+		System.out.println("  3 → Stone");
+   		System.out.println("  4 → Food");
+   		System.out.println("  5 → Water");
+   		System.out.println("  6 → Barter Token\n");
+	
+	   	System.out.println(" STASHING:");
+   		System.out.println("- You may stash 1 unit of Wood, Stone, Food, or Water.");
+   		System.out.println("- Stashing gives you 1 survival point.");
+		System.out.println("- You cannot stash Barter Tokens.\n");
+	
+	   	System.out.println(" BARTERING:");
+   		System.out.println("- Trade 1 Barter Token for 1 resource of your choice.");
+   		System.out.println("- If you own an Outpost, each Barter Token is worth 2 resources.\n");
+	
+	   	System.out.println(" STRUCTURES (Build Costs & Points):");
+   		System.out.println("  1.) Fire Pit   → 1 Wood, 1 Stone           = 3 points");
+   		System.out.println("  2.) Shelter    → 1 Wood, 1 Food, 1 Water   = 5 points");
+   		System.out.println("  3.) Cabin      → 2 Wood, 2 Stone, 1 Food, 1 Water = 18 points");
+  	 	System.out.println("  4.) Outpost    → 1 of each + 1 Barter Token = 10 points");
+   		System.out.println("     → Having an Outpost doubles your bartering power.\n");
+	
+  	 	System.out.println(" INVENTORY:");
+ 		System.out.println("- Your inventory includes resources, structures you've built, and your points.");
+		System.out.println("- You can view your inventory after every roll.\n");
+
+   		System.out.println(" WINNING:");
+   		System.out.println("- First player to reach 25 points wins the game.\n");
+	
+		System.out.println("Have fun!\n");	
+	}
+	
 	public void selectPlayers(){
 		System.out.print("Player 1 name: ");
 		String player1Name = input.nextLine();
@@ -96,13 +144,13 @@ public class Game {
 		p2 = new Player(player2Name);
 		
 	}
-	public String flipCoin(double chanceOfHeads){
+	public boolean flipCoin(double chanceTrue){
 		double toss = rand.nextDouble();
-		if (toss < chanceOfHeads){
-			return "heads";
+		if (toss < chanceTrue){
+			return true;
 		}
 		else {
-			return "tails";
+			return false;
 		}
 	}
 
@@ -118,10 +166,11 @@ public class Game {
 		System.out.println("1.) Stash");
 		System.out.println("2.) Barter");
 		System.out.println("3.) Build");
-		System.out.println("4.) Rules/Instructions");
-		System.out.println("5.) Exit Game");
-		System.out.print("Please Enter (0-5): ");
-		int response = p1.getInt(0,5);
+		System.out.println("4.) View Inventory");
+		System.out.println("5.) Rules/Instructions");
+		System.out.println("6.) Exit Game");
+		System.out.print("Please Enter (0-6): ");
+		int response = p1.getInt(0,6);
 		return response;
 	}
 
@@ -137,14 +186,14 @@ public class Game {
 		System.out.print(player.name + " rolls a... " + roll);
 		
 		if (roll == 1){
-			String coin = flipCoin(.66);
+			boolean coin = flipCoin(.75);
 			System.out.println(" and encounters the bandit!!!");
-			if (coin.equals("tails")){
-				System.out.println("The bandit steals all your resources");
+			if (coin == false){
+				System.out.println("The bandit steals all of " + player.name + "'s resources");
 				player.clearResources();
 			}
 			else{
-				System.out.println("You narrowly escape with your resources");
+				System.out.println(player.name + " narrowly escapes with their resources");
 			}
 		}
 		else if (roll == 2){
@@ -192,9 +241,12 @@ public class Game {
 				}
 			}
 			else if (response == 4){
-				printRules();
+				player.printInventory();
 			}
 			else if (response == 5){
+				printRules();
+			}
+			else if (response == 6){
 				return false;
 			}
 

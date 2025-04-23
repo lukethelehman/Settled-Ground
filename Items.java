@@ -14,6 +14,6 @@ public class Items {
 												"Cabin", "Outpost"}; 
 	public static final int[] costFirepit = {3,1,1,0,0,0,0,0,0,0};
 	public static final int[] costShelter = {5,1,0,1,1,0,0,0,0,0};
-	public static final int[] costCabin = {10,2,2,1,1,0,0,0,0,0};
+	public static final int[] costCabin = {18,2,2,1,1,0,0,0,0,0};
 	public static final int[] costOutpost = {10,1,1,1,1,1,0,0,0,0};
 }

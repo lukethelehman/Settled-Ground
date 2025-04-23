@@ -55,8 +55,8 @@ public class Player {
 				inventory[response]--;
 				inventory[Items.POINTS] ++;
 				System.out.println();
-				System.out.print("You stashed one " + Items.itemStrings[response]);
-				System.out.println(" and earned one point");
+				System.out.print(name + " stashes one " + Items.itemStrings[response]);
+				System.out.println(" to earn one point");
 				return true;
 			}
 			else if (inventory[response] == 0) {
@@ -91,7 +91,7 @@ public class Player {
 				System.out.print("Please Enter (1-4): ");
 				int response = getInt(1,4);
 				inventory[response]++;
-				System.out.println("You gained one " + Items.itemStrings[response]);
+				System.out.println(name + " gains one " + Items.itemStrings[response]);
 			}
 			return true;
 		}
@@ -138,8 +138,8 @@ public class Player {
 				inventory[Items.POINTS] = inventory[Items.POINTS] + cost[Items.POINTS];
 				inventory[response + 5]++;
 				System.out.println();
-				System.out.println("You built a " + Items.itemStrings[response +5]);
-				System.out.println("for " + cost[Items.POINTS] + " points");
+				System.out.print(name + " built a " + Items.itemStrings[response +5]);
+				System.out.println(" for " + cost[Items.POINTS] + " points");
 				return true;
 			}
 			else {
