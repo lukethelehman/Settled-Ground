@@ -22,11 +22,12 @@ public class Player {
 	} */
 
 	public void printInventory(){
+		System.out.println();
 		System.out.println(name + "'s Inventory");
-		System.out.println(Items.itemStrings[Items.POINTS] + ": " + inventory[Items.POINTS]);
+		System.out.println("   " + Items.itemStrings[Items.POINTS] + ": " + inventory[Items.POINTS]);
 		for (int i = 1; i < inventory.length; i++){
 			if (inventory[i] != 0){
-				System.out.println(Items.itemStrings[i] + ": " + inventory[i]);
+				System.out.println("   " + Items.itemStrings[i] + ": " + inventory[i]);
 			}
 		}	
 	}
@@ -38,6 +39,7 @@ public class Player {
 	public boolean stashResource(){
 		boolean keepGoing = true;
 		while (keepGoing){
+			System.out.println();
 			System.out.println("Which resource would you like to stash?");
 			System.out.println("1.) Wood");
 			System.out.println("2.) Stone");
@@ -52,8 +54,9 @@ public class Player {
 			if (inventory[response] != 0){
 				inventory[response]--;
 				inventory[Items.POINTS] ++;
-				System.out.println("You stashed one " + Items.itemStrings[response]);
-				System.out.println("You earned one point");
+				System.out.println();
+				System.out.print("You stashed one " + Items.itemStrings[response]);
+				System.out.println(" and earned one point");
 				return true;
 			}
 			else if (inventory[response] == 0) {
@@ -66,6 +69,7 @@ public class Player {
 	public boolean useBarter(){
 		int choices = 0;
 		if (inventory[Items.BARTERTOKEN] <= 0){
+			System.out.println();
 			System.out.println("No Barter Tokens");
 			return false;
 		}
@@ -78,6 +82,7 @@ public class Player {
 				choices = 1;
 			}
 			for (int i = 0; i < choices; i++){
+				System.out.println();
 				System.out.println("Which resource would you like?");
 				System.out.println("1.) Wood");
 				System.out.println("2.) Stone");
@@ -100,6 +105,7 @@ public class Player {
 	public boolean build(){
 		boolean keepGoing = true;
 		while (keepGoing) {
+			System.out.println();
 			System.out.println("Which structure would you like to build?");
 			System.out.println("1.) Firepit");
 			System.out.println("2.) Shelter");
@@ -131,6 +137,7 @@ public class Player {
 				}
 				inventory[Items.POINTS] = inventory[Items.POINTS] + cost[Items.POINTS];
 				inventory[response + 5]++;
+				System.out.println();
 				System.out.println("You built a " + Items.itemStrings[response +5]);
 				System.out.println("for " + cost[Items.POINTS] + " points");
 				return true;

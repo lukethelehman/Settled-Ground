@@ -17,6 +17,10 @@ public class Game {
 	}
 
 	public void start(){
+		System.out.println("=======================================");
+		System.out.println("      WELCOME TO SETTLED GROUND");
+		System.out.println("=======================================");
+
 		boolean keepGoing = true;
 		while (keepGoing){
 			int response = gameMenu();
@@ -27,32 +31,41 @@ public class Game {
 				printRules();
 			}
 			else if (response == 2){
+				System.out.println();
 				selectPlayers();
+				System.out.println("Welcome, " + p1.name + " and " + p2.name);
 				Player first = p1;
 				Player second = p2;
+				System.out.println();
+				System.out.print("Press ENTER to flip coin and see who goes first: ");
+				input.nextLine();
 				String coin = flipCoin(.5);
-				if (coin == "heads"){
-					System.out.println("flipping coin, heads goes first...");
-					System.out.println(p2.name + " lands heads and goes first");
+				if (coin.equals("heads")){
+					System.out.println("flipping coin...");
+					System.out.println(p2.name + " goes first");
 					first = p2;
 					second = p1;
 				}
 				else{
-					System.out.println("flipping coin, heads goes first...");
-					System.out.println(p1.name + " lands heads and goes first");
+					System.out.println("flipping coin...");
+					System.out.println(p1.name + " goes first");
 				}
 
-				boolean noWinner = true;
-				while (noWinner){
-					takeTurn(first);
+				boolean inGame = true;
+				while (inGame){
+					if (takeTurn(first) == false){
+						break;
+					}
 					if (first.inventory[Items.POINTS] >= 25){
 						System.out.println(first.name + " wins!!!");
-						noWinner = false;
+						break;
 					}
-					takeTurn(second);
+					if (takeTurn(second) == false){
+						break;
+					}
 					if (second.inventory[Items.POINTS] >= 25){
-						System.out.println(second.name + " wins!!!");
-						noWinner = false;
+						System.out.println(second.name + " wins!!!");	
+						break;
 					}
 				}
 			}
@@ -99,25 +112,34 @@ public class Game {
 	}
 
 	public int actionMenu(){
+		System.out.println();
+		System.out.println("-- Action Menu --");
 		System.out.println("0.) Continue");
 		System.out.println("1.) Stash");
 		System.out.println("2.) Barter");
 		System.out.println("3.) Build");
 		System.out.println("4.) Rules/Instructions");
 		System.out.println("5.) Exit Game");
+		System.out.print("Please Enter (0-5): ");
 		int response = p1.getInt(0,5);
 		return response;
 	}
 
-	public void takeTurn(Player player){
+	public boolean takeTurn(Player player){
 		int roll = rollDie();
-		System.out.println(player.name + " rolls a... " + roll);
+		System.out.println();
+		System.out.println("===============================");
+		System.out.println(player.name + "'s Turn");
+		System.out.println("===============================");
+		System.out.print("Press ENTER to roll the die: ");
+		input.nextLine();
+		System.out.println();
+		System.out.print(player.name + " rolls a... " + roll);
 		
 		if (roll == 1){
-			String coin = flipCoin(.5);
-			System.out.println("and encounters the bandit!!! If they flip tails they lose all their resources");
-			System.out.println(player.name + "flips a coin and lands " + coin);
-			if (coin == "tails"){
+			String coin = flipCoin(.66);
+			System.out.println(" and encounters the bandit!!!");
+			if (coin.equals("tails")){
 				System.out.println("The bandit steals all your resources");
 				player.clearResources();
 			}
@@ -127,23 +149,23 @@ public class Game {
 		}
 		else if (roll == 2){
 			player.addResource(Items.WOOD);
-			System.out.println("and collects 1 Wood");
+			System.out.println(" and collects 1 Wood");
 		}
 		else if (roll == 3){
 			player.addResource(Items.STONE);
-			System.out.println("and collects 1 STONE");
+			System.out.println(" and collects 1 Stone");
 		}
 		else if (roll == 4){
 			player.addResource(Items.FOOD);
-			System.out.println("and collects 1 Food");
+			System.out.println(" and collects 1 Food");
 		}
 		else if (roll == 5){
 			player.addResource(Items.WATER);
-			System.out.println("and collects 1 Water");
+			System.out.println(" and collects 1 Water");
 		}
 		else if (roll == 6){
 			player.addResource(Items.BARTERTOKEN);
-			System.out.println("and collects 1 Barter Token");
+			System.out.println(" and collects 1 Barter Token");
 		}
 		
 		player.printInventory();
@@ -173,10 +195,13 @@ public class Game {
 				printRules();
 			}
 			else if (response == 5){
-				start();
+				return false;
 			}
+
 		}
-	}							
+		System.out.println("-------------------------------");
+		return true;
+	}
 }
 
 
