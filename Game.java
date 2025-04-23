@@ -51,8 +51,7 @@ public class Game {
 					System.out.println(p1.name + " goes first");
 				}
 
-				boolean inGame = true;
-				while (inGame){
+				while (true){
 					if (takeTurn(first) == false){
 						break;
 					}
