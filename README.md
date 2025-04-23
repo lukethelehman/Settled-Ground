@@ -27,7 +27,7 @@ My biggest goal is to get the basic mechanics working. After that I will need to
   - **Build** - use resources to build a structure for points
 
 **Die Values:**
-- 1: Bandit (if rolled, a coin is flipped for a 50% chance to lose all resources)
+- 1: Bandit (if rolled, 25% chance to lose all resources)
 - 2: Wood
 - 3: Stone
 - 4: Food
@@ -41,7 +41,7 @@ My biggest goal is to get the basic mechanics working. After that I will need to
 |----------------|------|-------|------|--------|---------------|--------|
 | Fire Pit       | 1    | 1     |      |        |               | 3      |
 | Shelter        | 1    |       | 1    | 1      |               | 5      |
-| Cabin          | 2    | 2     | 1    | 1      |               | 10     |
+| Cabin          | 2    | 2     | 1    | 1      |               | 18     |
 | Outpost        | 1    | 1     | 1    | 1      | 1             | 10     |
 *(Barter tokens now worth 2 resources when used for bartering)*
 
